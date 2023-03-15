@@ -1,6 +1,21 @@
+#!/home/int33h/.pyenv/shims/python3.10
 """
 Простой тестовый скрипт для терминала
 """
+import sys
+import os
+
+if __name__ == "__main__" and __package__ is None:
+    # main dir
+    path = sys.path[0]
+    index = path.index("bookkeeper") + len("bookkeeper")
+    path = path[:index]
+
+    # package
+    __package__ = os.path.relpath(sys.path[0], path).replace('\\', '.')
+
+    # sys.path modification (add main dir)
+    sys.path.insert(1, path)
 
 from bookkeeper.models.category import Category
 from bookkeeper.models.expense import Expense

@@ -3,7 +3,7 @@
 """
 from collections import defaultdict
 from dataclasses import dataclass
-from typing import Iterator
+from typing import Iterator, Union
 
 from ..repository.abstract_repository import AbstractRepository
 
@@ -16,7 +16,7 @@ class Category:
     У категорий верхнего уровня parent = None
     """
     name: str
-    parent: int | None = None
+    parent: Union[int, None] = None
     pk: int = 0
 
     def get_parent(self,
@@ -88,7 +88,7 @@ class Category:
     @classmethod
     def create_from_tree(
             cls,
-            tree: list[tuple[str, str | None]],
+            tree: list[tuple[str, Union[str, None]]],
             repo: AbstractRepository['Category']) -> list['Category']:
         """
         Создать дерево категорий из списка пар "потомок-родитель".
